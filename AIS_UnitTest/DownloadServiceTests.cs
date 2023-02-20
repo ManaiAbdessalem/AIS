@@ -44,7 +44,7 @@ namespace AIS_UnitTest
             public async Task DownloadFile_FolderNotExists_throwException(string filepath)
             {
                 // Arrange Act
-                var ex = Assert.ThrowsAsync<Exception>(() => _downloadService.DownloadFilesAsync(filepath));
+                var ex = Assert.ThrowsAsync<DirectoryNotFoundException>(() => _downloadService.DownloadFilesAsync(filepath));
 
                 // Assert
                 Assert.Equal("Local folder path invalid!", ex.Result.Message);

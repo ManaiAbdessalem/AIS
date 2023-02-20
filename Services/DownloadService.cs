@@ -13,14 +13,13 @@ namespace Services
         /// <inheritdoc />
         public async Task DownloadFilesAsync(string localFolderPath)
         {
+            if (!IsValidPath(localFolderPath))
+            {
+                Console.WriteLine("Local folder path invalid!");
+                throw new DirectoryNotFoundException("Local folder path invalid!");
+            }
             try
             {
-                if (!IsValidPath(localFolderPath))
-                {
-                    Console.WriteLine("Local folder path invalid!");
-                    throw new Exception("Local folder path invalid!");
-                }
-
                 AisUriProvider aisUriProvider = new();
                 _files = aisUriProvider.Get().ToList();
                 for (int i = 0; i < _files.Count(); i += 3)
@@ -65,7 +64,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Unexpected Error! try later!");
             }
             finally
             {
